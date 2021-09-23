@@ -52,6 +52,7 @@ void read_file(char *file, stack_t **stack)
 	int line = 1, stat = -1;
 
 	monty = fopen(file, "r");
+	montyflag = 0;
 	if (monty == NULL)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", file);

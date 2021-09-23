@@ -38,6 +38,7 @@ typedef struct instruction_s
 
 char **arguments;
 int statusfunc;
+int montyflag;
 
 char *extension(char *file);
 void read_file(char *file, stack_t **stack);
@@ -45,26 +46,29 @@ void free_stack(stack_t *stack);
 char *cure_buffer(char *buffer);
 char **_strtok_all(char *buffer, char *delimiter);
 void free_args(char **args);
+size_t dlistint_len(stack_t *h);
+int delete_dnodeint_at_index(stack_t **head, unsigned int index);
+void swap_stack(stack_t **head);
 stack_t *add_dnodeint(stack_t **head, int n);
 stack_t *add_dnodeint_end(stack_t **head, int n);
 void free_args(char **args);
 int isnumber(char *s);
-void _pall(stack_t **stack, unsigned int line_number);
-void _swap(stack_t **stack, unsigned int line_number);
-void _nop(stack_t **stack, unsigned int line_number);
-void _pchar(stack_t **stack, unsigned int line_number);
-void _pint(stack_t **stack, unsigned int line_number);
-void _push(stack_t **stack, unsigned int line_number);
-void _pop(stack_t **stack, unsigned int line_number);
-void _add(stack_t **stack, unsigned int line_number);
-void _sub(stack_t **stack, unsigned int line_number);
-void _mul(stack_t **stack, unsigned int line_number);
-void _div(stack_t **stack, unsigned int line_number);
-void _pstr(stack_t **stack, unsigned int line_number);
-void _mod(stack_t **stack, unsigned int line_number);
-void _rotl(stack_t **stack, unsigned int line_number);
-void _rotr(stack_t **stack, unsigned int line_number);
-void _queue(stack_t **stack, unsigned int line_number);
-void _stack(stack_t **stack, unsigned int line_number);
+void _pall(stack_t **stack, unsigned int line);
+void _swap(stack_t **stack, unsigned int line);
+void _nop(stack_t **stack, unsigned int line);
+void _pchar(stack_t **stack, unsigned int line);
+void _pint(stack_t **stack, unsigned int line);
+void _push(stack_t **stack, unsigned int line);
+void _pop(stack_t **stack, unsigned int line);
+void _add(stack_t **stack, unsigned int line);
+void _sub(stack_t **stack, unsigned int line);
+void _mul(stack_t **stack, unsigned int line);
+void _div(stack_t **stack, unsigned int line);
+void _pstr(stack_t **stack, unsigned int line);
+void _mod(stack_t **stack, unsigned int line);
+void _rotl(stack_t **stack, unsigned int line);
+void _rotr(stack_t **stack, unsigned int line);
+void _queue(stack_t **stack, unsigned int line);
+void _stack(stack_t **stack, unsigned int line);
 
 #endif
