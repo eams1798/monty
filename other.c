@@ -73,6 +73,11 @@ int isnumber(char *s)
 		return (0);
 	while (*n != '\0')
 	{
+		if (*n == '-')
+		{
+			n++;
+			continue;
+		}
 		if (*n < 48 || *n > 57)
 			return (0);
 		n++;

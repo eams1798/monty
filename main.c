@@ -20,19 +20,11 @@ int main(int argc, char **argv)
 		 * break;
 		 */
 		case 2:
-			if (strcmp(extension(argv[1]), ".m") != 0)
-			{
-				write(2, "USAGE: monty <file>.m\n", 22);
-				exit(EXIT_FAILURE);
-			}
-			else
-			{
-				read_file(argv[1], &stack);
-				free_stack(stack);
-			}
+			read_file(argv[1], &stack);
+			free_stack(stack);
 			break;
 		default:
-			write(2, "USAGE: monty file\n", 18);
+			write(2, "usage: monty file\n", 18);
 			exit(EXIT_FAILURE);
 	}
 	exit(EXIT_SUCCESS);

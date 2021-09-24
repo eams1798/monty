@@ -94,6 +94,7 @@ void read_file(char *file, stack_t **stack)
 			fclose(monty);
 			exit(EXIT_FAILURE);
 		}
+		line++;
 	}
 	free(buffer);
 	fclose(monty);

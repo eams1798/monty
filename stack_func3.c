@@ -70,7 +70,7 @@ void _mod(stack_t **stack, unsigned int line)
 {
 	if (dlistint_len((*stack)) < 2)
 	{
-		fprintf(stderr, "L%d: can't div, stack too short\n", line);
+		fprintf(stderr, "L%d: can't mod, stack too short\n", line);
 		statusfunc = 0;
 		return;
 	}
