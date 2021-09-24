@@ -71,7 +71,7 @@ void _swap(stack_t **stack, unsigned int line)
 {
 	if (dlistint_len((*stack)) < 2)
 	{
-		fprintf(stderr, "L%d: can't swap, stack too short", line);
+		fprintf(stderr, "L%d: can't swap, stack too short\n", line);
 		statusfunc = 0;
 		return;
 	}
