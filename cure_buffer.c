@@ -1,9 +1,15 @@
 #include "monty.h"
 
-void only_one_space(char *dest, char *src)
+/**
+ * check_for_spaces - checks if buffer has spaces or newlines
+ * @dest: if src doesn't contain any spaces or newlines, puts here with
+ * a newline
+ * @src: the string to be checked
+ *
+ * Return: 1 if src contains at least one space or newline, 0 it doesn't
+ */
+int check_for_spaces(char *dest, char *src)
 {
-	size_t i, size = strlen(src);
-	int switcher = 0;
 	char *aux = src;
 
 	while (*aux != ' ' && *aux != '\n')
@@ -12,13 +18,30 @@ void only_one_space(char *dest, char *src)
 		{
 			strcpy(dest, src);
 			strcat(dest, "\n");
-			return;
+			return (0);
 		}
 		aux++;
 	}
+	return (1);
+}
+
+/**
+ * only_one_space - remove extra blank spaces from buffer and puts the result
+ * in other string
+ * @dest: src puts the string with no extra blank spaces here
+ * @src: the string to be cleaned of extra blank spaces
+ *
+ * Return: Nothing
+ */
+void only_one_space(char *dest, char *src)
+{
+	size_t i, size = strlen(src);
+	int switcher = 0;
+
+	if (check_for_spaces(dest, src) == 0)
+		return;
 	for (i = 0; i <= size; i++)
 	{
-
 		while (switcher == 0)
 		{
 			if (*src != ' ')
@@ -47,6 +70,13 @@ void only_one_space(char *dest, char *src)
 	}
 }
 
+/**
+ * rm_first_space - checks if the first character of the given string is a
+ * blank spaces and deletes if it is
+ * @buffer: a buffer to be checked
+ *
+ * Return: a new buffer with the correct blank spaces
+ */
 char *rm_first_space(char *buffer)
 {
 	size_t i;
@@ -66,6 +96,12 @@ char *rm_first_space(char *buffer)
 	return (nofs);
 }
 
+/**
+ * cure_buffer - Clean buffer of extra blank spaces
+ * @buffer: Buffer to process
+ *
+ * Return: buffer cured
+ */
 char *cure_buffer(char *buffer)
 {
 	size_t i, size = strlen(buffer);
@@ -104,82 +140,4 @@ char *cure_buffer(char *buffer)
 	new = NULL;
 	aux = NULL;
 	return (cure);
-}
-
-char **tokalloc(char *buffer, char *delim, int ctok)
-{
-	int i, k = 0;
-	char **tokens;
-
-	tokens = malloc((ctok + 1) * sizeof(char *));
-	if (tokens == NULL)
-	{
-		free(tokens);
-		return (NULL);
-	}
-	for (i = 0; i <= ctok; i++)
-	{
-		if (*buffer == '\0')
-		{
-			tokens[i] = NULL;
-			break;
-		}
-		while (*buffer != delim[0] && *buffer != delim[1])
-		{
-			if (*buffer == '\0')
-				break;
-			k++;
-			buffer++;
-		}
-		tokens[i] = malloc((k + 1) * sizeof(char));
-		if (tokens[i] == NULL)
-		{
-			for (; i >= 0; i--)
-				free(tokens[i]);
-			free(tokens);
-			return (NULL);
-		}
-		buffer++;
-		k = 0;
-	}
-	return (tokens);
-}
-
-char **_strtok_all(char *buffer, char *delimiter)
-{
-	size_t i, j, ctok = 0, k = 0;
-	char *ptr = buffer, *ptr2 = buffer;
-	size_t size = strlen(buffer);
-	char **tokens = NULL;
-
-	if (buffer == NULL)
-		return (NULL);
-	for (i = 0; i < size; i++)
-	{
-		for (j = 0; j < 2; j++)
-		{
-			if (buffer[i] == delimiter[j])
-				ctok++;
-		}
-	}
-	tokens = tokalloc(ptr, delimiter, ctok);
-	if (tokens == NULL)
-		return (NULL);
-	ptr = NULL;
-	for (i = 0; i <= ctok; i++)
-	{
-		if (*ptr2 == '\0')
-			break;
-		while (*ptr2 != delimiter[0] && *ptr2 != delimiter[1] && *ptr2 != '\0')
-		{
-			tokens[i][k] = *ptr2;
-			ptr2++;
-			k++;
-		}
-		tokens[i][k] = '\0';
-		ptr2++;
-		k = 0;
-	}
-	ptr2 = NULL;
-	return (tokens);
 }

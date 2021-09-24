@@ -1,14 +1,24 @@
 #include "monty.h"
 
+/**
+ * main - monty language's interpreter
+ * @argc: number of arguments
+ * @argv: arguments of the program
+ *
+ * Return: EXIT_SUCCESS if the whole given file could be read,
+ * and EXIT_FAILURE if not
+ */
 int main(int argc, char **argv)
 {
 	stack_t *stack = NULL;
 
 	switch (argc)
 	{
-		case 1:
-			printf("Monty shell: coming soon\n");
-			break;
+		/*
+		 * case 1:
+		 * printf("Monty shell: coming soon\n");
+		 * break;
+		 */
 		case 2:
 			if (strcmp(extension(argv[1]), ".m") != 0)
 			{

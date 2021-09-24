@@ -1,5 +1,16 @@
 #include "monty.h"
 
+/**
+ * _push - pushes an element to the stack
+ * @stack: a given stack
+ * @line: the index of the current line
+ *
+ * The pushed element will be obtained from the global variable "arguments",
+ * which gets the value of all given arguments of the current line
+ * If there was an error, the function sets the global variable "statusfunc"
+ * to 0, but sets it to 1 if there wasn't any errors
+ * Return: Nothing
+ */
 void _push(stack_t **stack, unsigned int line)
 {
 	int data;
@@ -11,13 +22,32 @@ void _push(stack_t **stack, unsigned int line)
 		return;
 	}
 	data = atoi(arguments[1]);
+	/**
+	 * montyflag set to 0 means the data is set to a stack (LIFO)
+	 * if the data is set to a stack, "_push" pushes a new element
+	 * at the beginning of the data
+	 */
 	if (montyflag == 0)
 		add_dnodeint(stack, data);
+	/**
+	 * montyflag set to 1 means the data is set to a queue (FIFO)
+	 * if the data is set to a queue, "_push" pushes a new element
+	 * at the end of the data
+	 */
 	if (montyflag == 1)
 		add_dnodeint_end(stack, data);
 	statusfunc = 1;
 }
 
+/**
+ * _pall - prints all the values on the stack, starting from the top of
+ * the stack
+ * @stack: a given stack
+ * @line: the index of the current line
+ *
+ * If the stack is empty, "_pall" doesn’t print anything
+ * Return: Nothing
+ */
 void _pall(stack_t **stack, unsigned int line)
 {
 	stack_t *ptr;
@@ -28,6 +58,15 @@ void _pall(stack_t **stack, unsigned int line)
 	statusfunc = 1;
 }
 
+/**
+ * _swap - swaps the top two elements of the stack
+ * @stack: a given stack
+ * @line: the index of the current line
+ *
+ * If there was an error, the function sets the global variable "statusfunc"
+ * to 0, but sets it to 1 if there wasn't any errors
+ * Return: Nothing
+ */
 void _swap(stack_t **stack, unsigned int line)
 {
 	if (dlistint_len((*stack)) < 2)
@@ -40,6 +79,13 @@ void _swap(stack_t **stack, unsigned int line)
 	statusfunc = 1;
 }
 
+/**
+ * _nop - doesn’t do anything
+ * @stack: a given stack
+ * @line: the index of the current line
+ *
+ * Return: Nothing
+ */
 void _nop(stack_t **stack, unsigned int line)
 {
 	(void)stack;
@@ -47,6 +93,15 @@ void _nop(stack_t **stack, unsigned int line)
 	statusfunc = 1;
 }
 
+/**
+ * _pchar - prints the char at the top of the stack, followed by a new line
+ * @stack: a given stack
+ * @line: the index of the current line
+ *
+ * If there was an error, the function sets the global variable "statusfunc"
+ * to 0, but sets it to 1 if there wasn't any errors
+ * Return: Nothing
+ */
 void _pchar(stack_t **stack, unsigned int line)
 {
 	int top;
@@ -66,205 +121,5 @@ void _pchar(stack_t **stack, unsigned int line)
 		return;
 	}
 	printf("%c\n", top);
-	statusfunc = 1;
-}
-
-void _pint(stack_t **stack, unsigned int line)
-{
-	int top;
-
-	if ((*stack) == NULL)
-	{
-		fprintf(stderr, "L%d: can't pint, stack empty\n", line);
-		statusfunc = 0;
-		return;
-	}
-	top = (*stack)->n;
-	printf("%d\n", top);
-	statusfunc = 1;
-}
-
-void _pop(stack_t **stack, unsigned int line)
-{
-	if ((*stack) == NULL)
-	{
-		fprintf(stderr, "L%d: can't pop an empty stack\n", line);
-		statusfunc = 0;
-		return;
-	}
-	delete_dnodeint_at_index(stack, 0);
-	statusfunc = 1;
-}
-
-void _add(stack_t **stack, unsigned int line)
-{
-	if (dlistint_len((*stack)) < 2)
-	{
-		fprintf(stderr, "L%d: can't add, stack too short\n", line);
-		statusfunc = 0;
-		return;
-	}
-	(*stack)->next->n += (*stack)->n;
-	delete_dnodeint_at_index(stack, 0);
-	statusfunc = 1;
-}
-
-void _sub(stack_t **stack, unsigned int line)
-{
-	if (dlistint_len((*stack)) < 2)
-	{
-		fprintf(stderr, "L%d: can't sub, stack too short\n", line);
-		statusfunc = 0;
-		return;
-	}
-	(*stack)->next->n -= (*stack)->n;
-	delete_dnodeint_at_index(stack, 0);
-	statusfunc = 1;
-}
-
-void _mul(stack_t **stack, unsigned int line)
-{
-	if (dlistint_len((*stack)) < 2)
-	{
-		fprintf(stderr, "L%d: can't mul, stack too short\n", line);
-		statusfunc = 0;
-		return;
-	}
-	(*stack)->next->n *= (*stack)->n;
-	delete_dnodeint_at_index(stack, 0);
-	statusfunc = 1;
-}
-
-void _div(stack_t **stack, unsigned int line)
-{
-	if (dlistint_len((*stack)) < 2)
-	{
-		fprintf(stderr, "L%d: can't div, stack too short\n", line);
-		statusfunc = 0;
-		return;
-	}
-	if ((*stack)->n == 0)
-	{
-		fprintf(stderr, "L%d: division by zero\n", line);
-		statusfunc = 0;
-		return;
-	}
-	(*stack)->next->n /= (*stack)->n;
-	delete_dnodeint_at_index(stack, 0);
-	statusfunc = 1;
-}
-
-void _pstr(stack_t **stack, unsigned int line)
-{
-	int c;
-	stack_t *ptr = *stack;
-
-	(void)line;
-	while(ptr != NULL)
-	{
-		c = ptr->n;
-		if (c < 32 || c > 126)
-			break;
-		putchar(c);
-		ptr = ptr->next;
-	}
-	putchar('\n');
-	statusfunc = 1;
-}
-
-void _mod(stack_t **stack, unsigned int line)
-{
-	if (dlistint_len((*stack)) < 2)
-	{
-		fprintf(stderr, "L%d: can't div, stack too short\n", line);
-		statusfunc = 0;
-		return;
-	}
-	if ((*stack)->n == 0)
-	{
-		fprintf(stderr, "L%d: division by zero\n", line);
-		statusfunc = 0;
-		return;
-	}
-	(*stack)->next->n %= (*stack)->n;
-	delete_dnodeint_at_index(stack, 0);
-	statusfunc = 1;
-}
-/**
- * _rotr - rotates the stack to the bottom
- * The last element of the stack becomes the top element of the stack
- * @stack:
- * @line:
- *
- * Return:
- */
-void _rotr(stack_t **stack, unsigned int line)
-{
-	stack_t *head, *last;
-
-	(void)line;
-	if (dlistint_len((*stack)) < 2)
-	{
-		statusfunc = 1;
-		return;
-	}
-	head = *stack;
-	last = head;
-	while (last->next != NULL)
-		last = last->next;
-	last->prev->next = NULL;
-	last->prev = NULL;
-	last->next = head;
-	head->prev = last;
-	*stack = last;
-	statusfunc = 1;
-}
-
-/**
- * _rotl - rotates the stack to the top
- * The top element of the stack becomes the last one, and the second top
- * element of the stack becomes the first one
- * @stack:
- * line:
- *
- * Return:
- */
-void _rotl(stack_t **stack, unsigned int line)
-{
-	stack_t *head, *last;
-
-	(void)line;
-	if (dlistint_len((*stack)) < 2)
-	{
-		statusfunc = 1;
-		return;
-	}
-	head = *stack;
-	last = head;
-	while (last->next != NULL)
-		last = last->next;
-	*stack = head->next;
-	head->next->prev = NULL;
-	head->next = NULL;
-	head->prev = last;
-	last->next = head;
-	statusfunc = 1;
-}
-
-void _queue(stack_t **stack, unsigned int line)
-{
-	(void)stack;
-	(void)line;
-
-	montyflag = 1;
-	statusfunc = 1;
-}
-
-void _stack(stack_t **stack, unsigned int line)
-{
-	(void)stack;
-	(void)line;
-
-	montyflag = 0;
 	statusfunc = 1;
 }

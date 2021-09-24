@@ -113,6 +113,12 @@ int delete_dnodeint_at_index(stack_t **head, unsigned int index)
 	return (1);
 }
 
+/**
+ * swap_stack - swaps the top two elements of the stack
+ * @head: the top element of the stack
+ *
+ * Return: Nothing
+ */
 void swap_stack(stack_t **head)
 {
 	stack_t *s1 = *head;

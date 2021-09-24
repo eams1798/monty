@@ -1,5 +1,11 @@
 #include "monty.h"
 
+/**
+ * extension - checks the extension of a file
+ * @file: the name of a file
+ *
+ * Return: the extension of a file
+ */
 char *extension(char *file)
 {
 	char *ext;
@@ -19,6 +25,12 @@ char *extension(char *file)
 	return (ext);
 }
 
+/**
+ * free_args - frees a buffer which contains all the token arguments of a line
+ * @args: the given buffer
+ *
+ * Return: Nothing
+ */
 void free_args(char **args)
 {
 	int i = 0;
@@ -32,6 +44,12 @@ void free_args(char **args)
 	args = NULL;
 }
 
+/**
+ * free_stack - frees a stack
+ * @stack: a doubly linked list which is working as a stack
+ *
+ * Return: Nothing
+ */
 void free_stack(stack_t *stack)
 {
 	if (stack == NULL)
@@ -41,6 +59,12 @@ void free_stack(stack_t *stack)
 	free(stack);
 }
 
+/**
+ * isnumber - checks if the given string is a number
+ * @s: a string
+ *
+ * Return: 1 if 's' is a number, or 0 if it isn't
+ */
 int isnumber(char *s)
 {
 	char *n = s;
